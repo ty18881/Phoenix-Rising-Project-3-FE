@@ -16,20 +16,15 @@ class App extends React.Component {
   // input = user's input from GUI.
   // giggleLib = mashup of template + input
   state = {
-    template: {},
+    template: "",
     input: {},
-    giggleLib: {}
+    giggleLib: ""
   }
 
   // method that pulls each user input from the input object
-/**The input is expected to look like the following
- * input = {
- * Noun: value typed by user,
- * Adjective: value typed by user,
- * and so on }
- */
 
-  replacer = (match,partOfSpeech) => {
+
+   replacer = (match,partOfSpeech) => {
     // use the stripped value, e.g. Noun, Adjective, ProperNoun
     // and retrieve the corresponding value from the input object.
     return this.state.input[partOfSpeech];
@@ -40,10 +35,11 @@ class App extends React.Component {
    makeGiggleLib = () => {
      // strip off the $$ from the placeholders in the template.
      // pass this stripped value to the callback function.
-      // let giggleLib = this.state.template.replace(/\$\$(.*?)\$\$/g, replacer);
-      // this.setState({
-      //   giggleLib: giggleLib
-      // })
+     // $$Noun$$   => Noun: "blah"
+      let giggleLib = this.state.template.replace(/\$\$(.*?)\$\$/g, this.replacer);
+      this.setState({
+        giggleLib: giggleLib
+      })
   }
 
     render () {
