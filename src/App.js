@@ -2,6 +2,13 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+
+// URL to the API
+
+let baseURL = process.env.REACT_APP_BASEURL;
+
+console.log("Current Base URL", baseURL);
+
 class App extends React.Component {
 
   // state variables
@@ -9,9 +16,9 @@ class App extends React.Component {
   // input = user's input from GUI.
   // giggleLib = mashup of template + input
   state = {
-    template: template,
-    input: input,
-    giggleLib: giggleLib
+    template: {},
+    input: {},
+    giggleLib: {}
   }
 
   // method that pulls each user input from the input object
@@ -33,10 +40,10 @@ class App extends React.Component {
    makeGiggleLib = () => {
      // strip off the $$ from the placeholders in the template.
      // pass this stripped value to the callback function.
-      let giggleLib = this.state.template.replace(/\$\$(.*?)\$\$/g, replacer);
-      this.setState({
-        giggleLib: giggleLib
-      })
+      // let giggleLib = this.state.template.replace(/\$\$(.*?)\$\$/g, replacer);
+      // this.setState({
+      //   giggleLib: giggleLib
+      // })
   }
 
     render () {
