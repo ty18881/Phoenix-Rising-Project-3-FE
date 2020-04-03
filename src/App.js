@@ -5,9 +5,25 @@ import './App.css';
 
 // URL to the API
 
-let baseURL = process.env.REACT_APP_BASEURL;
+// let baseURL = process.env.REACT_APP_BASEURL;
+
+let baseURL = "http://localhost:3003";
 
 console.log("Current Base URL", baseURL);
+
+fetch(baseURL+ '/gigglelibs')
+  .then(data => {
+    return data.json()},
+    err => console.log(err))
+  .then(parsedData => console.log(parsedData),
+   err => console.log(err))
+   
+   fetch(baseURL+ '/templates')
+  .then(data => {
+    return data.json()},
+    err => console.log(err))
+  .then(parsedData => console.log(parsedData),
+   err => console.log(err));
 
 class App extends React.Component {
 
@@ -18,9 +34,32 @@ class App extends React.Component {
   state = {
     template: "",
     input: {},
-    giggleLib: ""
+    giggleLib: "",
+    giggleLibs: [],
+    templates: []
   }
 
+  // retrieve stories from the database
+  // currently retrieves all stories but should be customized to retrieve only those
+  // for the logged in user
+
+  getGiggleLibs = () => {
+    fetch(baseURL+ '/gigglelibs')
+  .then(data => {
+    return data.json()},
+    err => console.log(err))
+  .then(parsedData => this.setState({giggleLibs: parsedData}),
+  err => console.log(err))
+}
+
+getTemplates = () => {
+  fetch(baseURL+ '/templates')
+  .then(data => {
+    return data.json()},
+    err => console.log(err))
+  .then(parsedData => this.setState({templates: parsedData}),
+   err => console.log(err))
+}
   // method that pulls each user input from the input object
 
 
