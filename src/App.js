@@ -99,132 +99,16 @@ getTemplates = () => {
         giggleLib: giggleLib
       })
   }
-  constructor(props) {
-    super(props)
 
-    this.state = {
-      items: [
-        {showModal: false },
-        
-      ],
-    }
-    this.handleItemChange = this.handleItemChange.bind(this)
-  }
-
-  handleFormUpdate() {
-    return e => {
-      const field = e.target.name
-      const { form } = this.state
-      form[field] = e.target.value
-      this.setState({ form })
-    }
-  }
-
-  handleModalHide() {
-    return () => {
-      let { items } = this.state
-      items = items.map(item => ({
-        ...item,
-        showModal: false,
-      }))
-      this.setState({ items })
-    }
-  }
-
-  handleModalShow() {
-    return e => {
-      e.preventDefault()
-
-      this.setState({ showModal: true })
-    }
-  }
-
-  handleEditItem(selectedItem) {
-    return e => {
-      e.preventDefault()
-      let { items } = this.state
-      items = items.map(item => ({
-        ...item,
-        showModal: selectedItem.id === item.id,
-      }))
-      this.setState({ items })
-    }
-  }
-
-  handleItemChange(itemId) {
-    return e => {
-      let { items } = this.state
-      items = items.map(item => {
-        if (item.id === itemId) {
-          item[e.target.name] = e.target.value
-        }
-        return item
-      })
-      this.setState({ items })
-    }
-  }
 
   render() {
     const { items } = this.state
     return (
       <div>
-        <div class="box">
-        <h1>Welcome to Gigglelibs!</h1>
-        </div>
-        <table className="table">
-          <tbody>
-            {items.map((item, index) => (
-              <tr key={index}>
-                <td>
-                  <a
-                    className="btn btn-primary"
-                    onClick={this.handleEditItem(item)}
-                  >
-                    Your Gigglelibs
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {items.map((item, index) => (
-          <ItemModal
-            key={item.id}
-            show={item.showModal}
-            onHide={this.handleModalHide()}
-            onItemChange={this.handleItemChange}
-            item={item}
-          />
-        ))}
-      </div>
-    )
-  }
-}
-
-
-
-  render () {
-    return (
-      <div className="App">
-      
-        <header className="App-header">
-         
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {/* <NavBar
+            <NavBar
         user={this.user}
         handleLogout={this.handleLogout}
-      /> */}
+      />
          <Switch>
           <Route exact path='/signup' render={({ history }) => 
             <SignUpPage
@@ -239,11 +123,9 @@ getTemplates = () => {
             />
           }/>
         </Switch>
-        </header>
       </div>
-    );
+    )
   }
 }
-
 
 export default App;
