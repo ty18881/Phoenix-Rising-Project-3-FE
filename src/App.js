@@ -1,5 +1,4 @@
 
-
 import React, { Component } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 
@@ -12,7 +11,12 @@ import userService from './utils/userService';
 import tokenService from './utils/tokenService';
 import NavBar from './components/NavBar/NavBar'
 import ItemModal from './ItemModal'
+import NewGiggleLib from './components/NewGiggleLib';
+import UpdateGiggleLib from './components/UpdateGiggleLib';
 
+
+// import Modal from "react-bootstrap/Modal"
+// import Button from "react-bootstrap/Button"
 
 // URL to the API
 
@@ -37,9 +41,31 @@ class App extends React.Component {
     input: {},
     giggleLib: "",
     giggleLibs: [],
-    templates: []
- 
-  };
+    templates: [] 
+  }
+  
+
+
+// changing this to return a JSON collection
+
+fetchGiggleLibs = new Promise((resolve, reject) => {
+  fetch(baseURL + "/gigglelibs")
+  .then((response) => response.json())
+  .then((json) => {
+    resolve(json);
+  })
+})
+
+fetchTemplates = new Promise((resolve, reject) => {
+  fetch(baseURL + "/templates")
+  .then((response) => response.json())
+  .then((json) => {
+    resolve(json);
+  })
+})
+
+
+
 
   // token authentication 
   getInitialState() {
@@ -79,28 +105,71 @@ getTemplates = () => {
   .then(parsedData => this.setState({templates: parsedData}),
    err => console.log(err))
 }
+
   // method that pulls each user input from the input object
 
 
    replacer = (match,partOfSpeech) => {
     // use the stripped value, e.g. Noun, Adjective, ProperNoun
     // and retrieve the corresponding value from the input object.
+    console.log("Replacer - Part of Speech", partOfSpeech);
+    
     return this.state.input[partOfSpeech];
   }
 
   // method that combines user input with the giggle lib template
 
-   makeGiggleLib = () => {
-     // strip off the $$ from the placeholders in the template.
-     // pass this stripped value to the callback function.
-     // $$Noun$$   => Noun: "blah"
-      let giggleLib = this.state.template.replace(/\$\$(.*?)\$\$/g, this.replacer);
-      this.setState({
-        giggleLib: giggleLib
-      })
+  //  makeGiggleLib = () => {
+  //    // strip off the $$ from the placeholders in the template.
+  //    // pass this stripped value to the callback function.
+  //    // $$Noun$$   => Noun: "blah"
+  //    console.log("MakeGiggleLib - Before Replacer - the template", this.state.template);
+  //     let giggleLib = this.state.template.replace(/\$\$(.*?)\$\$/g, this.replacer);
+  //     this.setState({
+  //       giggleLib: giggleLib
+  //     })
+  //     console.log("MakeGiggleLib - After Replacer - New GL",giggleLib);
+  // }
+
+  makeGiggleLib = (template, currentInput) => {
+
+    // this.setState({
+    //   input: currentInput
+    // })
+
+    // this.setState((state) => {
+    //   return { input: currentInput}
+    // })
+
+    console.log("MakeGiggleLib - Current Input: ", currentInput);
+    console.log("MakeGiggleLib - State Input: ", this.state.input);
+    let giggleLib = template.replace(/\$\$(.*?)\$\$/g, this.replacer);
+    return giggleLib;
+
+  }
+  // eventually will retrieve a random template from the collection
+  // for now, just returns the first item.
+  // getRandomTemplate = () => {
+  //   this.setState({
+  //     template: this.state.templates[0]
+  //   }) 
+  // }
+
+  handleAddGiggleLib = (story) => {
+    const copyStories = [...this.state.giggleLibs]
+    copyStories.unshift(story);
+    this.setState({
+      giggleLibs: copyStories
+    })
   }
 
 
+  handleNewUserInput = (newInput) => {
+    this.setState({
+      input: newInput
+    })
+  }
+  
   render() {
     const { items } = this.state
     return (
@@ -125,6 +194,23 @@ getTemplates = () => {
         </Switch>
       </div>
     )
+  }
+
+componentDidMount = async () => {
+ 
+      let userStories = await this.fetchGiggleLibs;
+
+      let allTemplates = await this.fetchTemplates;
+
+      // checking to see if the promises have returned with the data we seek
+      // console.log("Component - got gigglelibs back: ", userStories);
+      // console.log("Component - got templates back: ", allTemplates);
+
+      // setting these into our state
+      this.setState({
+        giggleLibs: userStories,
+        templates: allTemplates
+      })
   }
 }
 
