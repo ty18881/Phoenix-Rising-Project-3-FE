@@ -72,66 +72,7 @@ fetchTemplates = new Promise((resolve, reject) => {
 })
 
 
-// getTemplates = () => {
-//   let tempCollection =[];
-// console.log("Get Templates - Called");
-//   fetch(baseURL+ '/templates')
-//   .then(data => {
-//     return data.json()},
-//     err => console.log(err))
-//   .then(parsedData => this.setState({templates: parsedData}),
-//    err => console.log(err))
-//    console.log("Get Templates - before return", tempCollection)
-//    return tempCollection;
-// }
-  // method that pulls each user input from the input object
 
-
-   replacer = (match,partOfSpeech) => {
-    // use the stripped value, e.g. Noun, Adjective, ProperNoun
-    // and retrieve the corresponding value from the input object.
-    console.log("Replacer - Part of Speech", partOfSpeech);
-    
-    return this.state.input[partOfSpeech];
-  }
-
-  // method that combines user input with the giggle lib template
-
-  //  makeGiggleLib = () => {
-  //    // strip off the $$ from the placeholders in the template.
-  //    // pass this stripped value to the callback function.
-  //    // $$Noun$$   => Noun: "blah"
-  //    console.log("MakeGiggleLib - Before Replacer - the template", this.state.template);
-  //     let giggleLib = this.state.template.replace(/\$\$(.*?)\$\$/g, this.replacer);
-  //     this.setState({
-  //       giggleLib: giggleLib
-  //     })
-  //     console.log("MakeGiggleLib - After Replacer - New GL",giggleLib);
-  // }
-
-  makeGiggleLib = (template, currentInput) => {
-
-    // this.setState({
-    //   input: currentInput
-    // })
-
-    // this.setState((state) => {
-    //   return { input: currentInput}
-    // })
-
-    console.log("MakeGiggleLib - Current Input: ", currentInput);
-    console.log("MakeGiggleLib - State Input: ", this.state.input);
-    let giggleLib = template.replace(/\$\$(.*?)\$\$/g, this.replacer);
-    return giggleLib;
-
-  }
-  // eventually will retrieve a random template from the collection
-  // for now, just returns the first item.
-  // getRandomTemplate = () => {
-  //   this.setState({
-  //     template: this.state.templates[0]
-  //   }) 
-  // }
 
   handleAddGiggleLib = (story) => {
     const copyStories = [...this.state.giggleLibs]
@@ -157,9 +98,7 @@ fetchTemplates = new Promise((resolve, reject) => {
       <NewGiggleLib 
         baseURL={baseURL}
         handleAddGiggleLib={this.handleAddGiggleLib}
-        makeGiggleLib={this.makeGiggleLib}
-        replacer={this.replacer}
-        template={this.state.templates[0]} // this appears to be an empty array not sure why since we did componentDidMount below.
+        template={this.state.templates[2]} // this appears to be an empty array not sure why since we did componentDidMount below.
         handleNewUserInput={this.handleNewUserInput} // callback fcn used to update input object in state.
         />
       <div className="container">
@@ -182,11 +121,7 @@ fetchTemplates = new Promise((resolve, reject) => {
 
 
 }
-// problem detected here.
-// the first call works successfully and the GiggleLibs array in state is populated
-// however the second, templates is null.
-// When I reverse the order of the calls, the array from the first call is populated
-// but the second is not.
+
   
 
   componentDidMount = async () => {
