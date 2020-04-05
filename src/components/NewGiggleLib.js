@@ -9,7 +9,22 @@ class NewGiggleLib extends React.Component {
         input: {}
     }
     
+    replacer = (match,partOfSpeech) => {
+        // use the stripped value, e.g. Noun, Adjective, ProperNoun
+        // and retrieve the corresponding value from the input object.
+        console.log("Replacer - Part of Speech", partOfSpeech);
+        
+        return this.state.input[partOfSpeech];
+      }
+
+      makeGiggleLib = (template, currentInput) => {
     
+        console.log("MakeGiggleLib - Current Input: ", currentInput);
+        console.log("MakeGiggleLib - State Input: ", this.state.input);
+        let giggleLib = template.replace(/\$\$(.*?)\$\$/g, this.replacer);
+        return giggleLib;
+    
+      }
     
     // handle event when user clicks the "create new" button
     // create a mashup of the user input and the template
@@ -31,18 +46,15 @@ class NewGiggleLib extends React.Component {
 
         console.log("NewGiggleLib - handleSubmit - Before New Lib", this.state)
 // this creates the mashup we're ultimately going to store in the database.
-        let newLib =  this.props.makeGiggleLib(this.props.template.text, this.state.input);
+        let newLib =  this.makeGiggleLib(this.props.template.text, this.state.input);
 
-// this set state call doesn't appear to work.
-        this.setState({
-            giggleLib: newLib
-        });
+
 
         console.log("NewGiggleLib - handleSubmit - After New Lib", this.state)
         fetch(this.props.baseURL + "/gigglelibs", {
             method: "POST",
             body: JSON.stringify({
-                name: "Testing 4 - Now using actual form input",
+                name: this.state.input.Title,
                 owner: "elonfamily",
                 text: newLib,
                 source_template: this.props.template.name
@@ -65,17 +77,19 @@ class NewGiggleLib extends React.Component {
         // object reference shorthand
         // what we want to do here is push the new id:value pair into the 
         
-        // this.setState({input: { [event.target.id]: event.target.value}})
-        // console.log("Handle Change - Event: ", event.target);
         const currEventId = event.target.id;
         const currEventVal = event.target.value;
 
+        // this.setState({input: { [event.target.id]: event.target.value}})
+        // console.log("Handle Change - Event: ", event.target);
+        
         // don't think we can use spread operator on an object.
         // let copyInput = [{[currEventId]: currEventVal},...this.state.input];
         this.state.input[currEventId] = currEventVal;
-        // console.log('Copied Input', this.state.input);
+        console.log('Copied Input', this.state.input);
 
         // I sense the above code is dangerous. but it still works
+
 
     }
 
@@ -85,6 +99,14 @@ class NewGiggleLib extends React.Component {
         
         return (
             <form onSubmit={this.handleSubmit}>
+                <label htmlFor="Title"></label>
+                <input type="text"
+                    id="Title"
+                    name="Title"
+                    onChange={this.handleChange}
+                    value={this.state.Title}
+                    placeholder="What are we calling your story"
+                />
                 <label htmlFor="Noun"></label>
                 <input type="text"
                     id="Noun"

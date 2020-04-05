@@ -64,96 +64,24 @@ fetchTemplates = new Promise((resolve, reject) => {
   })
 })
 
-
-
-
-  // token authentication 
-  getInitialState() {
-    return {
-      elapsedTime: 0,
-      isTiming: true
-    };
-  }
-
-  handleSignupOrLogin = () => {
-    this.setState({user: userService.getUser()});
-  }
-
-  handleLogout = () => {
-    userService.logout();
-    this.setState({ user: null });
-  }
-  
-   // retrieve stories from the database
-  // currently retrieves all stories but should be customized to retrieve only those
-  // for the logged in user
-
-  getGiggleLibs = () => {
-    fetch(baseURL+ '/gigglelibs')
-  .then(data => {
-    return data.json()},
-    err => console.log(err))
-  .then(parsedData => this.setState({giggleLibs: parsedData}),
-  err => console.log(err))
+ // token authentication 
+ getInitialState() {
+  return {
+    elapsedTime: 0,
+    isTiming: true
+  };
 }
 
-getTemplates = () => {
-  fetch(baseURL+ '/templates')
-  .then(data => {
-    return data.json()},
-    err => console.log(err))
-  .then(parsedData => this.setState({templates: parsedData}),
-   err => console.log(err))
+handleSignupOrLogin = () => {
+  this.setState({user: userService.getUser()});
 }
 
-  // method that pulls each user input from the input object
+handleLogout = () => {
+  userService.logout();
+  this.setState({ user: null });
+}
 
 
-   replacer = (match,partOfSpeech) => {
-    // use the stripped value, e.g. Noun, Adjective, ProperNoun
-    // and retrieve the corresponding value from the input object.
-    console.log("Replacer - Part of Speech", partOfSpeech);
-    
-    return this.state.input[partOfSpeech];
-  }
-
-  // method that combines user input with the giggle lib template
-
-  //  makeGiggleLib = () => {
-  //    // strip off the $$ from the placeholders in the template.
-  //    // pass this stripped value to the callback function.
-  //    // $$Noun$$   => Noun: "blah"
-  //    console.log("MakeGiggleLib - Before Replacer - the template", this.state.template);
-  //     let giggleLib = this.state.template.replace(/\$\$(.*?)\$\$/g, this.replacer);
-  //     this.setState({
-  //       giggleLib: giggleLib
-  //     })
-  //     console.log("MakeGiggleLib - After Replacer - New GL",giggleLib);
-  // }
-
-  makeGiggleLib = (template, currentInput) => {
-
-    // this.setState({
-    //   input: currentInput
-    // })
-
-    // this.setState((state) => {
-    //   return { input: currentInput}
-    // })
-
-    console.log("MakeGiggleLib - Current Input: ", currentInput);
-    console.log("MakeGiggleLib - State Input: ", this.state.input);
-    let giggleLib = template.replace(/\$\$(.*?)\$\$/g, this.replacer);
-    return giggleLib;
-
-  }
-  // eventually will retrieve a random template from the collection
-  // for now, just returns the first item.
-  // getRandomTemplate = () => {
-  //   this.setState({
-  //     template: this.state.templates[0]
-  //   }) 
-  // }
 
   handleAddGiggleLib = (story) => {
     const copyStories = [...this.state.giggleLibs]
