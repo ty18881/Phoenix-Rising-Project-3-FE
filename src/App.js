@@ -1,5 +1,4 @@
 
-
 import React, { Component } from 'react';
 import { Route, Router, Link, Redirect, withRouter } from 'react-router-dom';
 
@@ -11,31 +10,54 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import Homepage from "./pages/homepage"
 import NavBar from './components/NavBar/NavBar'
-// import ItemModal from './ItemModal'
+
+import ItemModal from './ItemModal'
+import NewGiggleLib from './components/NewGiggleLib';
+import UpdateGiggleLib from './components/UpdateGiggleLib';
+
+
+
+// import Modal from "react-bootstrap/Modal"
+// import Button from "react-bootstrap/Button"
 
 
 // URL to the API
 
-let baseURL = "http://localhost:3003";
+// let baseURL = process.env.REACT_APP_BASEURL;
+let baseURL = "http://localhost:3003"
+
 
 
 
 class App extends React.Component {
+
     // state variables
   // template = the template with placeholder values from the database.
   // input = user's input from GUI.
   // giggleLib = mashup of template + input
   
   state = {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      ...this.getInitialState(),
+      // Initialize user if there's a token, otherwise null
+    user: userService.getUser(),
+
     template: "",
     input: {},
     giggleLib: "",
     giggleLibs: [],
+
     templates: [],
     username: "",
     password: "",
     loggedIn: false,
     wrongPassword: false
+      
+      
   };
 
   
@@ -52,44 +74,100 @@ class App extends React.Component {
   err => console.log(err))
 }
 
-getTemplates = () => {
-  fetch(baseURL+ '/templates')
-  .then(data => {
-    return data.json()},
-    err => console.log(err))
-  .then(parsedData => this.setState({templates: parsedData}),
-   err => console.log(err))
-}
-  // method that pulls each user input from the input object
+
+   
 
 
-   replacer = (match,partOfSpeech) => {
-    // use the stripped value, e.g. Noun, Adjective, ProperNoun
-    // and retrieve the corresponding value from the input object.
-    return this.state.input[partOfSpeech];
+  fetchGiggleLibs = new Promise((resolve, reject) => {
+    fetch(baseURL + "/gigglelibs")
+    .then((response) => response.json())
+    .then((json) => {
+      resolve(json);
+    })
+  })
+  
+  fetchTemplates = new Promise((resolve, reject) => {
+    fetch(baseURL + "/templates")
+    .then((response) => response.json())
+    .then((json) => {
+      resolve(json);
+    })
+  })
+
+  handleNewUserInput = (newInput) => {
+    this.setState({
+      input: newInput
+    })
   }
 
-  // method that combines user input with the giggle lib template
+  getInitialState() {
+    return {
+      elapsedTime: 0,
+      isTiming: true
+    };
+  }
 
-   makeGiggleLib = () => {
-     // strip off the $$ from the placeholders in the template.
-     // pass this stripped value to the callback function.
-     // $$Noun$$   => Noun: "blah"
-      let giggleLib = this.state.template.replace(/\$\$(.*?)\$\$/g, this.replacer);
-      this.setState({
-        giggleLib: giggleLib
+
+  handleFormUpdate() {
+    return e => {
+      const field = e.target.name
+      const { form } = this.state
+      form[field] = e.target.value
+      this.setState({ form })
+    }
+  }
+
+
+  handleModalHide() {
+    return () => {
+      let { giggleLibs } = this.state
+      giggleLibs = giggleLibs.map(gigglelib => ({
+        ...gigglelib,
+        showModal: false,
+      }))
+      this.setState({ giggleLibs })
+    }
+  }
+
+  handleModalShow() {
+    return e => {
+      e.preventDefault()
+
+      this.setState({ showModal: true })
+    }
+  }
+
+  handleEditItem(selectedItem) {
+    return e => {
+      e.preventDefault()
+      let { giggleLibs } = this.state
+      giggleLibs = giggleLibs.map(gigglelib => ({
+        ...gigglelib,
+        showModal: selectedItem.id === gigglelib.id,
+      }))
+      this.setState({ giggleLibs })
+    }
+  }
+
+  handleItemChange(gigglelibId) {
+    return e => {
+      let { gigglelibs } = this.state
+      gigglelibs = gigglelibs.map(gigglelib => {
+        if (gigglelib.id === gigglelibId) {
+          gigglelib[e.target.name] = e.target.value
+        }
+        return gigglelib
       })
+      this.setState({ gigglelibs })
+    }
   }
+
 
   handleChange = (event) => {
     this.setState({ [event.target.id]: event.target.value });
   };
 
-  updateLogIn = () => {
-    this.setState({
-      loggedIn: true,
-    })
-  }
+ 
 
 
   handleSignUp = (event) => {
@@ -181,8 +259,25 @@ getTemplates = () => {
       
     
       </div>
+
     )
   }
+  componentDidMount = async () => {
+ 
+    let userStories = await this.fetchGiggleLibs;
+
+    let allTemplates = await this.fetchTemplates;
+
+    // checking to see if the promises have returned with the data we seek
+    console.log("Component - got gigglelibs back: ", userStories);
+    console.log("Component - got templates back: ", allTemplates);
+
+    // setting these into our state
+    this.setState({
+      giggleLibs: userStories,
+      templates: allTemplates
+    })
+}
 }
 
 export default App;
