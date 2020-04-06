@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Nav } from 'react-bootstrap'
 // import './NavBar.css';
 
 
@@ -7,17 +8,13 @@ class NavBar extends React.Component {
   render() {
     return (
       <div>
-       <div>  
-         {/* {this.state.user} */}
-      <Link to='' className='NavBar-link' onClick={this.props.handleLogout}>LOG OUT</Link>
-      <span className='NavBar-welcome'>WELCOME, {this.props.username}</span>
-    </div>
-    {/* : */}
-    <div>
-      <Link to='/login' className='NavBar-link'>LOG IN</Link>
-      <Link to='/signup' className='NavBar-link'>SIGN UP</Link>
-    </div>  
+       <Nav defaultActiveKey="/" className="flex-column"> <hr/>
+          <Nav.Link href="" onClick={this.props.handleLogOut}><h3>LOG OUT</h3></Nav.Link>
+          <Nav.Link href=""><h3> MAKE NEW GIGGLELIB</h3></Nav.Link>   
+      </Nav>
 </div>
+
+
     )
 };
 }
