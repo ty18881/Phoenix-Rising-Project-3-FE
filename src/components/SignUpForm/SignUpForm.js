@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-
 class SignUpForm extends React.Component {
 
   handleChange = (event) => {
@@ -10,6 +9,7 @@ class SignUpForm extends React.Component {
 
   handleSubmit = (event) => {
     // event.preventDefault();
+
     this.props.handleSignUp(this.state.username, this.state.password);
   };
   render() {
@@ -29,7 +29,7 @@ class SignUpForm extends React.Component {
           </div>
           <div className="form-group">
             <div className="col-sm-12 text-center">
-              
+
             </div>
           </div>
           <input type="submit" value="Sign Up"/>
@@ -38,5 +38,4 @@ class SignUpForm extends React.Component {
     );
   }
 }
-
 export default SignUpForm;
