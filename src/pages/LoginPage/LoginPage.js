@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // import './LoginPage.css';
 
-
 class LoginPage extends React.Component {
   state = {
     username: "",
     password: "",
   };
-
   handleChange = (event) => {
     this.setState({ [event.target.id]: event.target.value });
   };
@@ -33,3 +31,4 @@ class LoginPage extends React.Component {
 }
 
 export default LoginPage;
+
