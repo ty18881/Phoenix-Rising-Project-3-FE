@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import "./css/bootstrap.css";
-import SignUpPage from './pages/SignUpPage/SignUpPage';
-import LoginPage from './pages/LoginPage/LoginPage';
-import userService from './utils/userService';
-import tokenService from './utils/tokenService';
+import "../css/bootstrap.css";
+
+
 import ItemModal from '../ItemModal'
 
 
@@ -79,23 +77,8 @@ constructor(props) {
         <div class="box">
         <h1>Welcome to Gigglelibs!</h1>
         </div>
-        <table className="table">
-          <tbody>
-            {items.map((item, index) => (
-              <tr key={index}>
-                <td>
-                  <a
-                    className="btn btn-primary"
-                    onClick={this.handleEditItem(item)}
-                  >
-                    Your Gigglelibs
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {items.map((item, index) => (
+       
+        {this.props.libs.map((item, index) => (
           <ItemModal
             key={item.id}
             show={item.showModal}
