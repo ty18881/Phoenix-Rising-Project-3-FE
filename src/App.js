@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 
-
 // import logo from './logo.svg';
 import "./css/bootstrap.css";
 import './App.css';
@@ -14,6 +13,7 @@ import ItemModal from './ItemModal'
 import NewGiggleLib from './components/NewGiggleLib';
 import UpdateGiggleLib from './components/UpdateGiggleLib';
 
+
 // import Modal from "react-bootstrap/Modal"
 // import Button from "react-bootstrap/Button"
 
@@ -24,14 +24,15 @@ import UpdateGiggleLib from './components/UpdateGiggleLib';
 let baseURL = "http://localhost:3003"
 
 
+
 class App extends React.Component {
 
     // state variables
   // template = the template with placeholder values from the database.
   // input = user's input from GUI.
   // giggleLib = mashup of template + input
-  
   state = {
+
     template: "",
     input: {},
     giggleLib: "",
@@ -45,21 +46,11 @@ class App extends React.Component {
   };
   
   
+     
+  
    // retrieve stories from the database
   // currently retrieves all stories but should be customized to retrieve only those
   // for the logged in user
-
-  getGiggleLibs = () => {
-    fetch(baseURL+ '/gigglelibs')
-  .then(data => {
-    return data.json()},
-    err => console.log(err))
-  .then(parsedData => this.setState({giggleLibs: parsedData}),
-  err => console.log(err))
-}
-
-
-   
 
 
   fetchGiggleLibs = new Promise((resolve, reject) => {
@@ -69,7 +60,7 @@ class App extends React.Component {
       resolve(json);
     })
   })
-  
+
   fetchTemplates = new Promise((resolve, reject) => {
     fetch(baseURL + "/templates")
     .then((response) => response.json())
@@ -77,7 +68,6 @@ class App extends React.Component {
       resolve(json);
     })
   })
-
 
 
   handleFormUpdate = () => {
@@ -98,7 +88,83 @@ class App extends React.Component {
       }))
       this.setState({ giggleLibs })
     }
+
   }
+  handleFormUpdate = () => {
+    return e => {
+      const field = e.target.name
+      const { form } = this.state
+      form[field] = e.target.value
+      this.setState({ form })
+    }
+  }
+  handleModalHide = () =>{
+    return () => {
+      let { giggleLibs } = this.state
+      giggleLibs = giggleLibs.map(gigglelib => ({
+        ...gigglelib,
+        showModal: false,
+      }))
+      this.setState({ giggleLibs })
+    }
+  }
+  handleModalShow = ()=> {
+    return e => {
+      e.preventDefault()
+      this.setState({ showModal: true })
+    }
+  }
+  handleEditItem = (selectedItem) => {
+    return e => {
+      e.preventDefault()
+      let { giggleLibs } = this.state
+      giggleLibs = giggleLibs.map(gigglelib => ({
+        ...gigglelib,
+        showModal: selectedItem.id === gigglelib.id,
+      }))
+      this.setState({ giggleLibs })
+    }
+  }
+  handleItemChange = (gigglelibId) => {
+    return e => {
+      let { gigglelibs } = this.state
+      gigglelibs = gigglelibs.map(gigglelib => {
+        if (gigglelib.id === gigglelibId) {
+          gigglelib[e.target.name] = e.target.value
+        }
+        return gigglelib
+      })
+      this.setState({ gigglelibs })
+    }
+  }
+  handleChange = (event) => {
+    this.setState({ [event.target.id]: event.target.value });
+  };
+
+
+  handleSignUp = () => {
+    console.log("signup clicked")
+    // event.preventDefault();
+    fetch(baseURL + "/users", {
+      method: "POST",
+       headers: {
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({ 
+          username: this.state.username,
+          password: this.state.password
+          }),
+    })
+    .then(res => res.json())
+    .then(data => {
+      return data.json()},
+      console.log("sign up success!!"),
+     this.setState({loggedIn: true, 
+    }),
+      err => console.log(err))
+    .catch(error => console.log(error));
+  };
+
 
   handleModalShow = ()=> {
     return e => {
@@ -192,9 +258,11 @@ class App extends React.Component {
   };
 
 
+
   handleLogOut = () => {
     this.setState({loggedIn: false})
   }
+
 
 
   render() {
@@ -210,7 +278,7 @@ class App extends React.Component {
       <LoginPage handleLogIn={this.handleLogIn} /> 
       </div>
     : null }
-    
+
     {this.state.wrongPassword ?
     <div>
       <h1> Welcome to Giggle Lib </h1>
@@ -218,6 +286,7 @@ class App extends React.Component {
       <LoginPage handleLogIn={this.handleLogIn} /> 
     </div>
     :null}
+
 
     {this.state.loggedIn && this.state.wrongPassword === false ?
         <div>   <NavBar
@@ -232,24 +301,31 @@ class App extends React.Component {
        
         </div>
 
+
+
     : null}
-    
+      
       </div>
 
     )
+
     }
+
+  
+
   componentDidMount = async () => {
     let userStories = await this.fetchGiggleLibs;
     let allTemplates = await this.fetchTemplates;
     // checking to see if the promises have returned with the data we seek
     console.log("Component - got gigglelibs back: ", userStories);
     console.log("Component - got templates back: ", allTemplates);
+
     // setting these into our state
     this.setState({
       giggleLibs: userStories,
       templates: allTemplates
     })
-}
-}
 
+}
+}
 export default App;

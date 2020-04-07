@@ -11,7 +11,9 @@ class SignUpForm extends React.Component {
   };
 
   handleSubmit = (event) => {
+
     event.preventDefault();
+
     this.props.handleSignUp(this.state.username, this.state.password);
   };
 
@@ -22,6 +24,7 @@ class SignUpForm extends React.Component {
           <input type="text" id="username" name="username" onChange={this.handleChange} value={this.state.name} placeholder="username"/>
           <input type="password" id="password" name="password" onChange={this.handleChange} value={this.state.password} placeholder="password"/>
           <input type="submit" value="Sign Up" />
+
         </form>
       </div>
     );

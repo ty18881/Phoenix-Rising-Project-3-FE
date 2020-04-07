@@ -6,7 +6,6 @@ class LoginPage extends React.Component {
     username: "",
     password: "",
   };
-
   handleChange = (event) => {
     this.setState({ [event.target.id]: event.target.value });
   };
@@ -30,3 +29,4 @@ class LoginPage extends React.Component {
 }
 
 export default LoginPage;
+
