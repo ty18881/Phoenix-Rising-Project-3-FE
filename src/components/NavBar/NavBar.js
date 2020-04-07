@@ -11,6 +11,8 @@ class NavBar extends React.Component {
           <Nav.Link href=""><h3> MAKE NEW GIGGLELIB</h3></Nav.Link>   
       </Nav>
 </div>
+
+
     )
 };
 }

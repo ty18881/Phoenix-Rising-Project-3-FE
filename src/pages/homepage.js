@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+
 import "../css/bootstrap.css";
 
-
+import LoginPage from '../pages/LoginPage/LoginPage';
 import ItemModal from '../ItemModal'
 
 
-class App extends React.Component {
+class Homepage extends React.Component {
 constructor(props) {
     super(props)
 
@@ -93,4 +94,4 @@ constructor(props) {
 }
     
     
-    export default App;
+    export default Homepage;

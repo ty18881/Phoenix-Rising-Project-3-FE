@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // import './LoginPage.css';
+
 class LoginPage extends React.Component {
   state = {
     username: "",
@@ -9,10 +10,12 @@ class LoginPage extends React.Component {
   handleChange = (event) => {
     this.setState({ [event.target.id]: event.target.value });
   };
+
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.handleLogIn(this.state.username, this.state.password);
   };
+
   render() {
     return (
       <>
@@ -34,4 +37,6 @@ class LoginPage extends React.Component {
     );
   }
 }
+
 export default LoginPage;
+
