@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 // import "./css/bootstrap.css";
 import LoginPage from '../pages/LoginPage/LoginPage';
 import ItemModal from '../ItemModal'
-
+import NewGiggleLib from '../components/NewGiggleLib';
+import MakeLib from "../components/MakeLib"
 
 class Homepage extends React.Component {
 constructor(props) {
@@ -15,6 +16,12 @@ constructor(props) {
       ],
     }
     this.handleItemChange = this.handleItemChange.bind(this)
+  }
+
+  handleNewUserInput = (newInput) => {
+    this.setState({
+      input: newInput
+    })
   }
 
   handleFormUpdate() {
@@ -101,6 +108,14 @@ constructor(props) {
             item={item}
           />
         ))}
+        <NewGiggleLib
+          handleNewUserInput={this.handleNewUserInput}
+          username={this.props.username}
+          templates={this.props.templates}
+          baseURL={this.props.baseURL}
+        />
+        Make Lib
+        <MakeLib />
          </div>
     )
   }

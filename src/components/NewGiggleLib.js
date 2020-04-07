@@ -1,5 +1,7 @@
 import React from "react";
 
+
+
 class NewGiggleLib extends React.Component {
 
 
@@ -9,7 +11,7 @@ class NewGiggleLib extends React.Component {
         input: {}
     }
     
-    replacer = (match,partOfSpeech) => {
+  replacer = (match,partOfSpeech) =>{
         // use the stripped value, e.g. Noun, Adjective, ProperNoun
         // and retrieve the corresponding value from the input object.
         console.log("Replacer - Part of Speech", partOfSpeech);
@@ -32,13 +34,15 @@ class NewGiggleLib extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-
-        console.log("NewGiggleLib - Template from props", this.props.template)
+ 
+        console.log("NewGiggleLib - Template from props", this.props.templates)
+                // CH ^ the console log here shows this.props.template as undefined. 
+                // state returns an empty object
 
         this.setState({
-            template: this.props.template
+            template: this.props.templates[0]
         })
-
+        console.log("NewGiggleLib - Template from props", this.props.templates[0])
         // send the user input to the parent component so it's visible to replacer function.
         // use the callback fcn provided
 
@@ -46,7 +50,7 @@ class NewGiggleLib extends React.Component {
 
         console.log("NewGiggleLib - handleSubmit - Before New Lib", this.state)
 // this creates the mashup we're ultimately going to store in the database.
-        let newLib =  this.makeGiggleLib(this.props.template.text, this.state.input);
+        let newLib =  this.makeGiggleLib(this.props.templates[0].text, this.state.input);
 
 
 
@@ -55,16 +59,17 @@ class NewGiggleLib extends React.Component {
             method: "POST",
             body: JSON.stringify({
                 name: this.state.input.Title,
-                owner: "elonfamily",
+                owner: this.props.username,
                 text: newLib,
-                source_template: this.props.template.name
+                source_template: this.props.templates[0].name
             }),
             headers: {
                     "Content-Type" : "application/json"
             }
         }).then (res => res.json())
         .then (resJson => {
-            this.props.handleAddGiggleLib(resJson)
+            // this.props.handleAddGiggleLib(resJson)
+            console.log(resJson)
         }).catch (error => console.error({"Error": error}))
     }
 
@@ -93,7 +98,6 @@ class NewGiggleLib extends React.Component {
 
     }
 
-    
     render () {
 
         
