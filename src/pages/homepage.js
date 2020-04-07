@@ -73,7 +73,7 @@ constructor(props) {
       const {items} = this.state
   return(
     <div>
-        <div class="box">
+        <div className="box">
         <h1>Welcome to Gigglelibs!</h1>
         </div>
         <table className="table">

@@ -21,24 +21,15 @@ class LoginPage extends React.Component {
   render() {
     return (
       <>
-        <header className="header-footer">Log In</header>
-        <form className="form-horizontal" onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <div className="col-sm-12">
-          <input type="text" className="form-control" id="username" name="username" onChange={this.handleChange} value={this.state.username} placeholder="username"/>
-          </div>
-          </div>
-          <div className="form-group">
-            <div className="col-sm-12">
-          <input type="password" className="form-control" id="password" name="password" onChange={this.handleChange} value={this.state.password} placeholder="password"  />
-          </div>
-          </div>
+        <h3>Please sign in to continue</h3>
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" id="username" name="username" onChange={this.handleChange} value={this.state.username} placeholder="username" />
+          <input  type="password" id="password" name="password" onChange={this.handleChange} value={this.state.password} />
           <input type="submit" value="Log In" />
         </form>
       </>
     );
   }
 }
-
 
 export default LoginPage;
