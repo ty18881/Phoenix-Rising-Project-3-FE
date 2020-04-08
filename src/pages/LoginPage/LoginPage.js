@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import './LoginPage.css';
 
 class LoginPage extends React.Component {
   state = {
@@ -18,14 +17,13 @@ class LoginPage extends React.Component {
 
   render() {
     return (
-      <>
-        <h3>Please sign in to continue</h3>
+      <div>
         <form onSubmit={this.handleSubmit}>
           <input type="text" id="username" name="username" onChange={this.handleChange} value={this.state.username} placeholder="username" />
-          <input  type="password" id="password" name="password" onChange={this.handleChange} value={this.state.password} />
+          <input  type="password" id="password" name="password" onChange={this.handleChange} value={this.state.password} placeholder="password"/>
           <input type="submit" value="Log In" />
         </form>
-      </>
+      </div>
     );
   }
 }

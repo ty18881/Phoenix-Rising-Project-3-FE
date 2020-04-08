@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react';
-import { Route, Router, Link, Redirect, withRouter } from 'react-router-dom';
 
 // import logo from './logo.svg';
 import "./css/bootstrap.css";
@@ -70,12 +69,6 @@ class App extends React.Component {
     })
   })
 
-  handleNewUserInput = (newInput) => {
-    this.setState({
-      input: newInput
-    })
-
-  }
 
   handleFormUpdate = () => {
     return e => {
@@ -229,7 +222,8 @@ class App extends React.Component {
       .then((resJson) => {
         console.log(resJson);
         this.setState({
-          loggedIn: true 
+          loggedIn: true, 
+          username: resJson.username, 
         });
         console.log("sign up successful!")
       })
@@ -252,10 +246,10 @@ class App extends React.Component {
     })
       .then((res) => res.json())
       .then((resJson) => {
-        console.log(resJson);
         this.setState({
           loggedIn: true,
-          wrongPassword: false
+          wrongPassword: false,
+          username: resJson.username,
         });
         console.log("login successful!")
       })
@@ -295,11 +289,16 @@ class App extends React.Component {
 
 
     {this.state.loggedIn && this.state.wrongPassword === false ?
-        <div>
-          <Homepage />
-          <NavBar
+        <div>   <NavBar
           handleLogOut={this.handleLogOut}
+          username={this.state.username}
           />
+          <Homepage
+          username={this.state.username}
+          templates={this.state.templates}
+          baseURL={baseURL}
+          />
+       
         </div>
 
 
