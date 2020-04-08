@@ -297,11 +297,10 @@ class App extends React.Component {
           username={this.state.username}
           templates={this.state.templates}
           baseURL={baseURL}
+          giggleLibs={this.state.giggleLibs}
           />
        
         </div>
-
-
 
     : null}
       
