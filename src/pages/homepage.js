@@ -78,6 +78,8 @@ constructor(props) {
       this.setState({ items })
     }
   }
+
+  
   render(){
       const {items} = this.state
   return(
@@ -86,7 +88,7 @@ constructor(props) {
         <h1>Welcome to Gigglelibs!</h1>
         </div>
        
-        {this.props.libs.map((item, index) => (
+        {/* {this.props.libs.map((item, index) => (
           <ItemModal
             key={item.id}
             show={item.showModal}
@@ -94,7 +96,7 @@ constructor(props) {
             onItemChange={this.handleItemChange}
             item={item}
           />
-        ))}
+        ))} */}
         <NewGiggleLib
           handleNewUserInput={this.handleNewUserInput}
           username={this.props.username}
