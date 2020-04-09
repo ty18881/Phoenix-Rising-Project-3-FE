@@ -80,6 +80,15 @@ constructor(props) {
   }
 
   
+  handleAddGiggleLib = (story) => {
+    const copyStories = [...this.props.giggleLibs]
+    copyStories.unshift(story);
+    this.setState({
+      giggleLibs: copyStories
+    })
+    }
+
+
   render(){
       const {items} = this.state
   return(
@@ -99,12 +108,29 @@ constructor(props) {
         ))} */}
         <NewGiggleLib
           handleNewUserInput={this.handleNewUserInput}
+          handleAddGiggleLib={this.handleAddGiggleLib}
           username={this.props.username}
           templates={this.props.templates}
           baseURL={this.props.baseURL}
         />
-        Make Lib
-        <MakeLib />
+         {this.props.giggleLibs.length > 0 ?
+        //  && this.templates.owner === this.props.username  
+
+        <div>
+            <h1>Your Gigglelibs</h1> 
+                <div>
+                  {this.props.giggleLibs.map((giggleLibs) => (
+                  <div key={giggleLibs.id}>
+                <h2>{giggleLibs.name}</h2>
+                  <p>{giggleLibs.text}</p>
+                  <button>Edit</button>
+                  <button>Delete</button>
+              </div>
+                ))}
+              </div>
+          </div>
+        : null}
+
          </div>
     )
   }

@@ -68,7 +68,7 @@ class NewGiggleLib extends React.Component {
             }
         }).then (res => res.json())
         .then (resJson => {
-            // this.props.handleAddGiggleLib(resJson)
+            this.props.handleAddGiggleLib(resJson)
             console.log(resJson)
         }).catch (error => console.error({"Error": error}))
     }
