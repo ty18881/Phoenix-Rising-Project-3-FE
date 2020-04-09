@@ -78,6 +78,7 @@ constructor(props) {
       this.setState({ items })
     }
   }
+
   
   handleAddGiggleLib = (story) => {
     const copyStories = [...this.props.giggleLibs]
@@ -86,6 +87,7 @@ constructor(props) {
       giggleLibs: copyStories
     })
     }
+
 
   render(){
       const {items} = this.state
