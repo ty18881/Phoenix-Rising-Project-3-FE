@@ -67,7 +67,7 @@ class UpdateGiggleLib extends React.Component {
         fetch(this.props.baseURL + "/gigglelibs/" + this.props.giggleLib._id , {
             method: "PUT",
             body: JSON.stringify({
-                name: this.state.Title,
+                name: this.state.input.Title,
                 text: newLib
             }),
             headers: {
