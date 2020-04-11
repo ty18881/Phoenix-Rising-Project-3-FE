@@ -20,8 +20,8 @@ import UpdateGiggleLib from './components/UpdateGiggleLib';
 
 // URL to the API
 
-// let baseURL = process.env.REACT_APP_BASEURL;
-let baseURL = "http://localhost:3003"
+let baseURL = process.env.REACT_APP_BASEURL;
+// let baseURL = "http://localhost:3003"
 
 
 
@@ -41,8 +41,7 @@ class App extends React.Component {
     // username: "",
     // password: "",
     loggedIn: false,
-    wrongPassword: false  
-      
+    wrongPassword: false,  
   };
   
   
@@ -262,8 +261,7 @@ class App extends React.Component {
   handleLogOut = () => {
     this.setState({loggedIn: false})
   }
-
-
+  
 
   render() {
     const { items } = this.state
@@ -298,6 +296,7 @@ class App extends React.Component {
           templates={this.state.templates}
           baseURL={baseURL}
           giggleLibs={this.state.giggleLibs}
+          handleDelete={this.state.handleChange}
           />
        
         </div>
