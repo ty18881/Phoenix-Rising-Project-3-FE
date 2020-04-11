@@ -14,6 +14,14 @@ class UpdateGiggleLib extends React.Component {
         input: {}
     }
     
+    /**
+     * PROPS for this component
+     * handleNewUserInput - method
+     * template - base of the current story - object
+     * giggleLib - the complete story - object
+     * handleAddGiggleLib - method
+     * baseURL - url for the API - string
+     */
     replacer = (match,partOfSpeech) => {
         // use the stripped value, e.g. Noun, Adjective, ProperNoun
         // and retrieve the corresponding value from the input object.
@@ -24,8 +32,8 @@ class UpdateGiggleLib extends React.Component {
 
       makeGiggleLib = (template, currentInput) => {
     
-        console.log("MakeGiggleLib - Current Input: ", currentInput);
-        console.log("MakeGiggleLib - State Input: ", this.state.input);
+        console.log("UpdateGiggleLib - Current Input: ", currentInput);
+        console.log("UpdateGiggleLib - State Input: ", this.state.input);
         let giggleLib = template.replace(/\$\$(.*?)\$\$/g, this.replacer);
         return giggleLib;
     
@@ -38,7 +46,9 @@ class UpdateGiggleLib extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        console.log("UpdatedGiggle - Template from props", this.props.template)
+
+        console.log("UpdateGiggleLib - Template from props", this.props.template)
+
 
         this.setState({
             template: this.props.template
@@ -49,16 +59,21 @@ class UpdateGiggleLib extends React.Component {
 
         this.props.handleNewUserInput(this.state.input);
 
-        console.log("UpdatedGiggle - handleSubmit - Before New Lib", this.state)
+
+        console.log("UpdateGiggleLib - handleSubmit - Before New Lib", this.state)
+
 // this creates the mashup we're ultimately going to store in the database.
         let newLib =  this.makeGiggleLib(this.props.template.text, this.state.input);
 
 
 
-        console.log("UpdatedGiggle - handleSubmit - After New Lib", this.state)
+
+        console.log("UpdateGiggleLib - handleSubmit - After New Lib", this.state)
+
         fetch(this.props.baseURL + "/gigglelibs/" + this.props.giggleLib._id , {
             method: "PUT",
             body: JSON.stringify({
+                name: this.state.input.Title,
                 text: newLib
             }),
             headers: {
@@ -149,7 +164,7 @@ class UpdateGiggleLib extends React.Component {
                     value={this.state.Adverb}
                     placeholder="Adverb"
                 />
-                    <input type="submit" value="Create A New GiggleLib"/>
+                    <input type="submit" value="Update your story!"/>
             </form>
         )
     }
