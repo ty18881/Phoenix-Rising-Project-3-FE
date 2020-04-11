@@ -40,9 +40,9 @@ class NewGiggleLib extends React.Component {
                 // state returns an empty object
 
         this.setState({
-            template: this.props.templates[0]
+            template: this.props.templates[3]
         })
-        console.log("NewGiggleLib - Template from props", this.props.templates[0])
+        console.log("NewGiggleLib - Template from props", this.props.templates[3])
         // send the user input to the parent component so it's visible to replacer function.
         // use the callback fcn provided
 
@@ -50,7 +50,7 @@ class NewGiggleLib extends React.Component {
 
         console.log("NewGiggleLib - handleSubmit - Before New Lib", this.state)
 // this creates the mashup we're ultimately going to store in the database.
-        let newLib =  this.makeGiggleLib(this.props.templates[0].text, this.state.input);
+        let newLib =  this.makeGiggleLib(this.props.templates[3].text, this.state.input);
 
 
 
@@ -61,7 +61,7 @@ class NewGiggleLib extends React.Component {
                 name: this.state.input.Title,
                 owner: this.props.username,
                 text: newLib,
-                source_template: this.props.templates[0].name
+                source_template: this.props.templates[3].name
             }),
             headers: {
                     "Content-Type" : "application/json"
