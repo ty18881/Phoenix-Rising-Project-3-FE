@@ -46,7 +46,9 @@ class UpdateGiggleLib extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
+
         console.log("UpdateGiggleLib - Template from props", this.props.template)
+
 
         this.setState({
             template: this.props.template
@@ -57,13 +59,17 @@ class UpdateGiggleLib extends React.Component {
 
         this.props.handleNewUserInput(this.state.input);
 
+
         console.log("UpdateGiggleLib - handleSubmit - Before New Lib", this.state)
+
 // this creates the mashup we're ultimately going to store in the database.
         let newLib =  this.makeGiggleLib(this.props.template.text, this.state.input);
 
 
 
+
         console.log("UpdateGiggleLib - handleSubmit - After New Lib", this.state)
+
         fetch(this.props.baseURL + "/gigglelibs/" + this.props.giggleLib._id , {
             method: "PUT",
             body: JSON.stringify({

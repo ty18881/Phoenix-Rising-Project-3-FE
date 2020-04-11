@@ -17,8 +17,8 @@ import NavBar from './components/NavBar/NavBar'
 
 // URL to the API
 
-// let baseURL = process.env.REACT_APP_BASEURL;
-let baseURL = "http://localhost:3003"
+let baseURL = process.env.REACT_APP_BASEURL;
+// let baseURL = "http://localhost:3003"
 
 
 
@@ -38,8 +38,7 @@ class App extends React.Component {
     // username: "",
     // password: "",
     loggedIn: false,
-    wrongPassword: false  
-      
+    wrongPassword: false,  
   };
   
   
@@ -260,12 +259,14 @@ class App extends React.Component {
     this.setState({loggedIn: false})
   }
 
+
   filterUserStories = (storyList) => {
     let userStories = this.state.giggleLibs.filter(story => story.owner === this.props.username);
     this.setState({
       userStories: userStories
     })
   }
+
 
   render() {
     const { items } = this.state
@@ -300,8 +301,13 @@ class App extends React.Component {
           username={this.state.username}
           templates={this.state.templates}
           baseURL={baseURL}
+
+          giggleLibs={this.state.giggleLibs}
+          handleDelete={this.state.handleChange}
+
           // giggleLibs={this.state.giggleLibs}
           giggleLibs={this.state.giggleLibs.filter(story => story.owner === this.state.username)}
+
           />
        
         </div>

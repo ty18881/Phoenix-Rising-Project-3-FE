@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 class NewGiggleLib extends React.Component {
 
 
@@ -36,13 +34,15 @@ class NewGiggleLib extends React.Component {
         event.preventDefault();
  
         console.log("NewGiggleLib - Template from props", this.props.templates)
-                // CH ^ the console log here shows this.props.template as undefined. 
-                // state returns an empty object
-
+                
+        let random = Math.floor(Math.random()*7)
         this.setState({
-            template: this.props.templates[3]
+
+            template: this.props.templates[random]
         })
-        console.log("NewGiggleLib - Template from props", this.props.templates[3])
+        console.log("NewGiggleLib - Template from props", this.props.templates[random])
+
+       
         // send the user input to the parent component so it's visible to replacer function.
         // use the callback fcn provided
 
@@ -50,7 +50,10 @@ class NewGiggleLib extends React.Component {
 
         console.log("NewGiggleLib - handleSubmit - Before New Lib", this.state)
 // this creates the mashup we're ultimately going to store in the database.
-        let newLib =  this.makeGiggleLib(this.props.templates[3].text, this.state.input);
+
+        let newLib =  this.makeGiggleLib(this.props.templates[random].text, this.state.input);
+
+
 
 
 
@@ -61,7 +64,9 @@ class NewGiggleLib extends React.Component {
                 name: this.state.input.Title,
                 owner: this.props.username,
                 text: newLib,
-                source_template: this.props.templates[3].name
+
+                source_template: this.props.templates[random].name
+
             }),
             headers: {
                     "Content-Type" : "application/json"
