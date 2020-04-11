@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 
-// import logo from './logo.svg';
 import "./css/bootstrap.css";
 import './App.css';
 import LoginPage from './pages/LoginPage/LoginPage';
@@ -9,9 +8,7 @@ import SignUpForm from './components/SignUpForm/SignUpForm';
 import Homepage from "./pages/homepage"
 import NavBar from './components/NavBar/NavBar'
 
-import ItemModal from './ItemModal'
-import NewGiggleLib from './components/NewGiggleLib';
-import UpdateGiggleLib from './components/UpdateGiggleLib';
+
 
 
 // import Modal from "react-bootstrap/Modal"

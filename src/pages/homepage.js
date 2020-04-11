@@ -11,11 +11,9 @@ constructor(props) {
     super(props)
 
     this.state = {
-      items: [
-        {showModal: false },
-        
-      ],
+     
       displayForm: false,
+      giggleLibs: this.props.giggleLibs
     }
     
   }
@@ -29,7 +27,8 @@ constructor(props) {
   
   
   handleAddGiggleLib = (story) => {
-    const copyStories = [...this.props.giggleLibs]
+    console.log("Handle Add GiggleLib - New Story", story);
+    const copyStories = [...this.state.giggleLibs]
     copyStories.unshift(story);
     this.setState({
       giggleLibs: copyStories
@@ -71,13 +70,12 @@ displayUpdateForm = (story) => {
           templates={this.props.templates}
           baseURL={this.props.baseURL}
         />
-         {this.props.giggleLibs.length > 0 ?
-        //  && this.props.templates.owner === this.props.username  
+         
 
         <div>
             <h1>Your Gigglelibs</h1> 
                 <div>
-                  {this.props.giggleLibs.map((giggleLibs, index) => (
+                  {this.state.giggleLibs.map((giggleLibs, index) => (
                   <div key={giggleLibs.id}>
                 <h2>{giggleLibs.name}</h2>
                   <p>{giggleLibs.text}</p>
@@ -97,7 +95,7 @@ displayUpdateForm = (story) => {
                 ))}
               </div>
           </div>
-        : null}
+        
 
          </div>
     )
