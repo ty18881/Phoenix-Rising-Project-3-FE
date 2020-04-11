@@ -13,7 +13,8 @@ constructor(props) {
     this.state = {
      
       displayForm: false,
-      giggleLibs: this.props.giggleLibs
+      giggleLibs: this.props.giggleLibs,
+      userStories: []
     }
     
   }
@@ -46,6 +47,7 @@ displayUpdateForm = (story) => {
 }
 
 
+
   render(){
       
       let currentTemplate = {};
@@ -54,7 +56,9 @@ displayUpdateForm = (story) => {
          currentTemplate = this.props.templates.find(myTemplate => myTemplate.name === this.state.currentStory.source_template);
       }
       
-
+      // this method takes the whole collection of stories passed from App.js and filters them by username.
+      // this.filterUserStories(this.state.giggleLibs)
+      
       
   return(
     <div>
@@ -71,31 +75,38 @@ displayUpdateForm = (story) => {
           baseURL={this.props.baseURL}
         />
          
+{/* If the current user doesn't have any stories,  
+want to welcome them and prompt them to create a new story. */}
 
+      
+
+
+    {this.state.giggleLibs.length > 0 ? 
         <div>
+          
             <h1>Your Gigglelibs</h1> 
                 <div>
-                  {this.state.giggleLibs.map((giggleLibs, index) => (
-                  <div key={giggleLibs.id}>
-                <h2>{giggleLibs.name}</h2>
-                  <p>{giggleLibs.text}</p>
-                  <button onClick={()=>this.displayUpdateForm(giggleLibs)}>Edit</button>
-                  <button >Delete</button>
-                  
-                  {this.state.displayForm && (this.state.currentStoryId === giggleLibs._id) ? 
-                            <UpdateGiggleLib
-                                   handleNewUserInput={this.handleNewUserInput}
-                                   handleAddGiggleLib={this.handleAddGiggleLib}
-                                   template={currentTemplate}
-                                   baseURL={this.props.baseURL}
-                                   giggleLib={this.state.currentStory}
-                            />  : null}
-              </div>
+                    {this.state.giggleLibs.map((giggleLibs, index) => (
+                    <div key={giggleLibs.id}>
+                  <h2>{giggleLibs.name}</h2>
+                    <p>{giggleLibs.text}</p>
+                    <button onClick={()=>this.displayUpdateForm(giggleLibs)}>Edit</button>
+                    <button >Delete</button>
+                    
+                    {this.state.displayForm && (this.state.currentStoryId === giggleLibs._id) ? 
+                              <UpdateGiggleLib
+                                    handleNewUserInput={this.handleNewUserInput}
+                                    handleAddGiggleLib={this.handleAddGiggleLib}
+                                    template={currentTemplate}
+                                    baseURL={this.props.baseURL}
+                                    giggleLib={this.state.currentStory}
+                              />  : null}
+                </div>
               
                 ))}
               </div>
           </div>
-        
+        : <h1>Create Your First Story!</h1> }
 
          </div>
     )

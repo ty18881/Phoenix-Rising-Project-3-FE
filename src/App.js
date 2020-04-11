@@ -204,7 +204,7 @@ class App extends React.Component {
  
 
   handleSignUp = (username, password) => {
-    console.log(username, password);
+    
     fetch(baseURL + "/users", {
       method: "POST",
       body: JSON.stringify({
@@ -217,7 +217,7 @@ class App extends React.Component {
     })
       .then((res) => res.json())
       .then((resJson) => {
-        console.log(resJson);
+        // console.log(resJson);
         this.setState({
           loggedIn: true, 
           username: resJson.username, 
@@ -260,10 +260,16 @@ class App extends React.Component {
     this.setState({loggedIn: false})
   }
 
-
+  filterUserStories = (storyList) => {
+    let userStories = this.state.giggleLibs.filter(story => story.owner === this.props.username);
+    this.setState({
+      userStories: userStories
+    })
+  }
 
   render() {
     const { items } = this.state
+
     return (
       <div>
       {!this.state.loggedIn && this.state.wrongPassword === false ? 
@@ -294,7 +300,8 @@ class App extends React.Component {
           username={this.state.username}
           templates={this.state.templates}
           baseURL={baseURL}
-          giggleLibs={this.state.giggleLibs}
+          // giggleLibs={this.state.giggleLibs}
+          giggleLibs={this.state.giggleLibs.filter(story => story.owner === this.state.username)}
           />
        
         </div>
@@ -313,6 +320,8 @@ class App extends React.Component {
     let userStories = await this.fetchGiggleLibs;
     let allTemplates = await this.fetchTemplates;
     // checking to see if the promises have returned with the data we seek
+
+
     console.log("Component - got gigglelibs back: ", userStories);
     console.log("Component - got templates back: ", allTemplates);
 
