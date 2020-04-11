@@ -139,7 +139,7 @@ want to welcome them and prompt them to create a new story. */}
                   <h2>{giggleLibs.name}</h2>
                     <p>{giggleLibs.text}</p>
                     <button onClick={()=>this.displayUpdateForm(giggleLibs)}>Edit</button>
-                    <button >Delete</button>
+                    <button onClick={()=>this.handleDelete(giggleLibs._id)}>Delete</button>
                     
                     {this.state.displayForm && (this.state.currentStoryId === giggleLibs._id) ? 
                               <UpdateGiggleLib
