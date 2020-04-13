@@ -156,7 +156,7 @@ class NewGiggleLib extends React.Component {
                     value={this.state.Adverb}
                     placeholder="Adverb"
                 />
-                    <input type="submit" value="Create A New GiggleLib"/>
+                    <input type="submit" value="Create A New GiggleLib And See Yours Below"/>
             </form>
         )
     }

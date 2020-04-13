@@ -88,7 +88,7 @@ handleDelete = (id) => {
         console.log("Displaying Form with story", this.state.currentStory);
         // pull the template behind this story from the templates array
 
-        let currentTemplate = this.props.templates.find(myTemplate => myTemplate.name === this.state.currentStory.source_template);
+        currentTemplate = this.props.templates.find(myTemplate => myTemplate.name === this.state.currentStory.source_template);
         console.log("Displaying Form with Template", currentTemplate);
         updateForm = (
           <div>
@@ -109,6 +109,7 @@ handleDelete = (id) => {
     <div>
         <div className="box">
         <h1>Welcome to Gigglelibs!</h1>
+        <h3>Welcome {this.props.username}!</h3>
         </div>
        
         
@@ -139,7 +140,7 @@ want to welcome them and prompt them to create a new story. */}
                   <h2>{giggleLibs.name}</h2>
                     <p>{giggleLibs.text}</p>
                     <button onClick={()=>this.displayUpdateForm(giggleLibs)}>Edit</button>
-                    <button >Delete</button>
+                    <button onClick={()=>this.handleDelete(giggleLibs.id)}>Delete</button>
                     
                     {this.state.displayForm && (this.state.currentStoryId === giggleLibs._id) ? 
                               <UpdateGiggleLib
