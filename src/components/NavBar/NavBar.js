@@ -6,8 +6,8 @@ class NavBar extends React.Component {
   render() {
     return (
       <div>
-       <Nav defaultActiveKey="/"> 
-       <h3>Welcome {this.props.username}</h3>
+       <Nav className= "justify-content-end" defaultActiveKey="/"> 
+          <h3>Welcome {this.props.username}</h3>
           <Nav.Link href="" onClick={this.props.handleLogOut}><h3>LOG OUT</h3></Nav.Link>
       </Nav>
 </div>
