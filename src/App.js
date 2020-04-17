@@ -275,7 +275,7 @@ class App extends React.Component {
       <div>
       {!this.state.loggedIn && this.state.wrongPassword === false ? 
         <div>
-        <h1> Welcome to Giggle Lib </h1>
+        <h1> Welcome to Giggle Libs!</h1>
         <h2>Please Sign Up</h2> 
       <SignUpForm handleSignUp={this.handleSignUp}  />
       <h2>Or Log In</h2>
@@ -285,7 +285,7 @@ class App extends React.Component {
 
     {this.state.wrongPassword ?
     <div>
-      <h1> Welcome to Giggle Lib </h1>
+      <h1> Welcome to Giggle Libs! </h1>
       <h2>Incorrect password or username, please try again</h2>
       <LoginPage handleLogIn={this.handleLogIn} /> 
     </div>

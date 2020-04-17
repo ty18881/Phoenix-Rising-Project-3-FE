@@ -8,7 +8,7 @@
 
 h1 {
   text-align: center;
-  font-family: 'Spicy Rice', cursive;
+  font-family: 'Bangers', cursive;
   font-size: 75px;
   background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
   -webkit-background-clip: text;
@@ -16,87 +16,79 @@ h1 {
 }
 
 h2 {
+  margin: 0 auto;
   color: white;
   padding-top: 20px;
+  padding-left: 20px;
+  font-size: 50px;
+  font-family: 'Bangers', cursive;
+  font-family: 'Amatic SC', cursive;
 }
 
 body {
-  background-color: black;
-  color: white;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    text-align: center
 }
 
-.btn-primary {
-  background-color: rgb(23, 184, 23);
-  display: block;
-  margin:auto;
-  width: 300px;
-  height: 100px;
-  padding-top: auto;
-  margin-top: 200px;
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+form{
+  
+  width: 500px;
+  padding-bottom: 50px;
+  color: white;
+  display: inline-block;
+  
+}
+label, input, textarea{
+  display: inline-block;
   font-family: 'Indie Flower', cursive;
-  font-size: 60px;
+  font-family: 'Bangers', cursive;
+  font-family: 'Amatic SC', cursive; 
+}
+
+input, textarea{
+  width: 300px;   
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  padding: 10px;
+  font-size: 20px;
+  color: #676767;
+  transition: border 0.5s;
+  -webkit-transition: border 0.5s;
+  -moz-transition: border 0.5s;
+  -o-transition: border 0.5s;
+  border: solid 3px #98d4f3;  
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+  text-align: center;
+  
+}
+
+h3 {
+  font-family: 'Indie Flower', cursive;
+  font-family: 'Bangers', cursive;
+  font-family: 'Amatic SC', cursive; 
+}
+
+p {
   color: white;
-}
-
-
-.btn-primary::before {
-  content: '';
-  border-radius: 1000px;
-  min-width: calc(300px + 12px);
-  min-height: calc(60px + 12px);
-  border: 6px solid rgb(234, 0, 255);
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.64);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: all .3s ease-in-out 0s;
-}
-
-.btn-primary:hover, .button:focus {
-  color: #e8e8ee;
-  transform: translateY(-6px);
-}
-
-.btn-primary:hover::before, button:focus::before {
-  opacity: 1;
-}
-
-
-.btn-primary::after {
-  content: '';
-  width: 30px; height: 30px;
-  border-radius: 100%;
-  border: 6px solid #00FFCB;
-  position: absolute;
-  z-index: -1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: ring 1.5s infinite;
-}
-
-.btn-primary:hover::after, .btn-primary:focus::after {
-  animation: none;
-  display: none;
-}
-
-@keyframes ring {
-  0% {
-    width: 30px;
-    height: 30px;
-    opacity: 1;
-  }
-  100% {
-    width: 600px;
-    height: 600px;
-    opacity: 0;
-  }
-}
-
-.btn-secondary {
-  float: right
+  font-family: 'Covered By Your Grace', cursive;
 }
 
 h4 {
@@ -123,18 +115,4 @@ h4 {
   animation-duration: 5s;
   animation-fill-mode: both;
   animation-iteration-count: infinite;
-}
-
-.wobble {
-  animation-name: wobble;
-}
-
-@keyframes wobble {
-  0% {transform: translateX(0%);}
-  15% {transform: translateX(-25%) rotate(-5deg);}
-  30% {transform: translateX(20%) rotate(3deg);}
-  45% {transform: translateX(-15%) rotate(-3deg);}
-  60% {transform: translateX(10%) rotate(2deg);}
-  75% {transform: translateX(-5%) rotate(-1deg);}
-  100% {transform: translateX(0%);}
 }

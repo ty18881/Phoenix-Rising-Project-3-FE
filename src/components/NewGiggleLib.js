@@ -76,6 +76,16 @@ class NewGiggleLib extends React.Component {
             this.props.handleAddGiggleLib(resJson)
             console.log(resJson)
         }).catch (error => console.error({"Error": error}))
+
+        // reset value of the form values.  this is the long way.
+        this.setState({
+            Title: "",
+            Noun: "",
+            Pronoun: "",
+            Verb: "",
+            Adjective: "",
+            Adverb: ""
+        })
     }
 
     /**
