@@ -141,7 +141,7 @@ class App extends React.Component {
   handleSignUp = () => {
     console.log("signup clicked")
     // event.preventDefault();
-    fetch(baseURL + "/users", {
+    fetch(baseURL + "users", {
       method: "POST",
        headers: {
         'Content-Type':'application/json'
@@ -204,7 +204,7 @@ class App extends React.Component {
 
   handleSignUp = (username, password) => {
     
-    fetch(baseURL + "/users", {
+    fetch(baseURL + "users", {
       method: "POST",
       body: JSON.stringify({
         username: username,
@@ -230,7 +230,7 @@ class App extends React.Component {
 
   handleLogIn = (username, password) => {
     console.log("login clicked");
-    fetch(baseURL + "/sessions", {
+    fetch(baseURL + "sessions", {
       method: "POST",
       body: JSON.stringify({
         username: username,
