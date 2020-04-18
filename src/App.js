@@ -50,7 +50,7 @@ class App extends React.Component {
 
 
   fetchGiggleLibs = new Promise((resolve, reject) => {
-    fetch(baseURL + "/gigglelibs")
+    fetch(baseURL + "gigglelibs")
     .then((response) => response.json())
     .then((json) => {
       resolve(json);
@@ -58,7 +58,7 @@ class App extends React.Component {
   })
 
   fetchTemplates = new Promise((resolve, reject) => {
-    fetch(baseURL + "/templates")
+    fetch(baseURL + "templates")
     .then((response) => response.json())
     .then((json) => {
       resolve(json);
