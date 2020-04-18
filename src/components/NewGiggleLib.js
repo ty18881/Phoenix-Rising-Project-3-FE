@@ -58,7 +58,7 @@ class NewGiggleLib extends React.Component {
 
 
         console.log("NewGiggleLib - handleSubmit - After New Lib", this.state)
-        fetch(this.props.baseURL + "/gigglelibs", {
+        fetch(this.props.baseURL + "gigglelibs", {
             method: "POST",
             body: JSON.stringify({
                 name: this.state.input.Title,
